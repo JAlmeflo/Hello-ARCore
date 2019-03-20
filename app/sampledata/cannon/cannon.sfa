@@ -1,0 +1,147 @@
+{
+  materials: [
+    {
+      name: 'Black_Wood_Material',
+      parameters: [
+        {
+          baseColor: 'black_wood_texture',
+        },
+        {
+          baseColorTint: [
+            0.64000000000000001,
+            0.64000000000000001,
+            0.64000000000000001,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 0.14280000000000001,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+    {
+      name: 'Material.Steel',
+      parameters: [
+        {
+          baseColor: 'metal_texture',
+        },
+        {
+          baseColorTint: [
+            0.45760000000000001,
+            0.4632,
+            0.47839999999999999,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 0.14280000000000001,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+    {
+      name: 'Material_Wood_Natural',
+      parameters: [
+        {
+          baseColor: 'wood_texture',
+        },
+        {
+          baseColorTint: [
+            0.64051400000000003,
+            0.64051400000000003,
+            0.64051400000000003,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 0.14280000000000001,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+    {
+      name: 'None',
+      parameters: [
+        {
+          baseColor: null,
+        },
+        {
+          baseColorTint: [
+            0.80000000000000004,
+            0.80000000000000004,
+            0.80000000000000004,
+            1,
+          ],
+        },
+        {
+          metallic: 1,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/cannon/cannon.obj',
+    name: 'cannon',
+    recenter: 'root',
+    scale: 0.70872400000000002,
+  },
+  samplers: [
+    {
+      file: 'sampledata/cannon/Textures/metal_texture.jpg',
+      name: 'metal_texture',
+      params: {
+        usage_type: 'Data',
+      },
+      pipeline_name: 'Textures/metal_texture.jpg',
+    },
+    {
+      file: 'sampledata/cannon/Textures/wood_texture.jpg',
+      name: 'wood_texture',
+      params: {
+        usage_type: 'Data',
+      },
+      pipeline_name: 'Textures/wood_texture.jpg',
+    },
+    {
+      file: 'sampledata/cannon/Textures/black_wood_texture.png',
+      name: 'black_wood_texture',
+      params: {
+        usage_type: 'Data',
+      },
+      pipeline_name: 'Textures/black_wood_texture.png',
+    },
+  ],
+  version: '0.54:2',
+}
