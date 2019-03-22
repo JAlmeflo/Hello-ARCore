@@ -15,22 +15,21 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
-
-import java.util.List;
 
 public class ARActivity extends AppCompatActivity {
     private static final String TAG = ARActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
+    // Change model from this int
+    private static final int MODEL_INDEX = R.raw.cannon;
+
     private ArFragment arFragment;
     private ModelRenderable modelRenderable;
 
-    // Change model from this int
-    private int modelIndex = R.raw.cannon;
+
 
     private boolean addedModel = false;
 
@@ -47,7 +46,7 @@ public class ARActivity extends AppCompatActivity {
 
         // Load models
         ModelRenderable.builder()
-                .setSource(this, modelIndex)
+                .setSource(this, MODEL_INDEX)
                 .build()
                 .thenAccept(renderable -> modelRenderable = renderable)
                 .exceptionally(
@@ -62,27 +61,33 @@ public class ARActivity extends AppCompatActivity {
         // Tap function
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (modelRenderable == null || addedModel) {
+
+                    if (modelRenderable == null) {
                         return;
                     }
 
-                    // Create the Anchor
-                    Anchor anchor = hitResult.createAnchor();
-                    AnchorNode anchorNode = new AnchorNode(anchor);
-                    anchorNode.setParent(arFragment.getArSceneView().getScene());
+                    if (!addedModel) {
+                        // Create the Anchor
+                        Anchor anchor = hitResult.createAnchor();
+                        AnchorNode anchorNode = new AnchorNode(anchor);
+                        anchorNode.setParent(arFragment.getArSceneView().getScene());
 
-                    // Create the transformable andy and add it to the anchor.
-                    /*TransformableNode model = new TransformableNode(arFragment.getTransformationSystem());
-                    model.setParent(anchorNode);
-                    model.setRenderable(modelRenderable);
-                    model.select();*/
+                        AnimationNode model = new AnimationNode();
+                        model.setParent(anchorNode);
+                        model.setRenderable(modelRenderable);
 
-                    Node model = new Node();
-                    model.setParent(anchorNode);
-                    model.setRenderable(modelRenderable);
+                        // Create a tap listener for the model
+                        model.setOnTapListener(
+                                (HitTestResult modelHitResult, MotionEvent modelMotionEvent) -> {
+                                    model.startAnimation();
+                                }
+                        );
 
-                    arFragment.getArSceneView().getPlaneRenderer().setEnabled(false);
-                    addedModel = true;
+
+
+                        arFragment.getArSceneView().getPlaneRenderer().setEnabled(false);
+                        addedModel = true;
+                    }
                 });
     }
 
